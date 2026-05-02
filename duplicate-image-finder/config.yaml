@@ -1,0 +1,11 @@
+folder: ./images
+db_path: ./db
+# 0.0 = identical, 0.10 = permissive (variants), 0.20+ = visually similar.
+similarity_threshold: 0.05
+max_neighbors: 50
+
+
+agent_workspace: ./agent_workspace
+agent_model_id: google/gemma-4-e4b
+# Lmstudio
+agent_url: http://localhost:1234/v1
