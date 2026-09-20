@@ -9,4 +9,5 @@ It also gives me a way to try new technologies, libraries, and frameworks so I c
 | Project | Description |
 | --- | --- |
 | [Duplicate Image Finder](duplicate-image-finder/README.md) | Group similar images together |
+| [Audio Generator API](audio-generator/README.md) | Turn a script into audio with a transcribe annoted |
 | coming soon :) | ... |

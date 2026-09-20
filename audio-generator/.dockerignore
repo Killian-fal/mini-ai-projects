@@ -1,0 +1,26 @@
+# Environnement virtuel local et caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Secrets et config locale — NE JAMAIS embarquer dans l'image
+.env
+.env.*
+*.json
+!**/package.json
+
+# Artefacts générés
+audio/
+
+# Outils / OS / IDE
+.git/
+.gitignore
+.DS_Store
+.claude/
+*.iml
+*.md
+Dockerfile
+.dockerignore

@@ -1,0 +1,2 @@
+GEMINI_PROVIDER = "gemini"
+OPENAI_PROVIDER = "openai"
