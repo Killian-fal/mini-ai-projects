@@ -1,0 +1,26 @@
+[project]
+name = "cli"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "commoncrawl",
+    "extract",
+    "jev",
+    "prompt",
+    "store",
+]
+
+[project.scripts]
+scan = "cli.scan:main"
+detect = "cli.detect:main"
+
+[tool.uv.sources]
+commoncrawl = { workspace = true }
+extract = { workspace = true }
+jev = { workspace = true }
+prompt = { workspace = true }
+store = { workspace = true }
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"

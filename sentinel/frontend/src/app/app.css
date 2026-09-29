@@ -1,0 +1,32 @@
+/* Single definition of the base values: `ui/tokens.stylex.ts` reads them via `var()`. */
+:root {
+  color-scheme: dark;
+  --sentinel-bg-base: #0b0d11;
+  --sentinel-text: #e4e7ec;
+  --sentinel-signal: #fb631b;
+  --sentinel-font-ui: Archivo, system-ui, sans-serif;
+  --sentinel-motion: 120ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--sentinel-bg-base);
+  color: var(--sentinel-text);
+  font-family: var(--sentinel-font-ui);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sentinel-signal);
+  outline-offset: 2px;
+}
+
+/* Every transition in the app takes its duration from this token: cutting it here cuts them all. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sentinel-motion: 0s;
+  }
+}

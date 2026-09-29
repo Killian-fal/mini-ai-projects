@@ -1,0 +1,80 @@
+[project]
+name = "backend"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "api",
+    "cli",
+    "commoncrawl",
+    "extract",
+    "jev",
+    "prompt",
+    "store",
+]
+
+[tool.uv.workspace]
+members = ["packages/*", "apps/*"]
+
+[tool.uv.sources]
+api = { workspace = true }
+cli = { workspace = true }
+commoncrawl = { workspace = true }
+extract = { workspace = true }
+jev = { workspace = true }
+prompt = { workspace = true }
+store = { workspace = true }
+
+[dependency-groups]
+dev = ["ruff", "mypy", "pytest", "httpx2", "testcontainers[mongodb]"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "D",       # pas de docstring obligatoire sur un job batch
+  "T201",    # print est la sortie du job
+  "COM812",  # conflit avec le formateur
+  "S310",    # urlopen sur data.commoncrawl.org et api.typesafe.ai uniquement
+  "S311",    # random() choisit un échantillon, pas un secret
+  "S608",    # SQL DuckDB composé d'URL et d'entiers contrôlés par l'app, pas d'entrée utilisateur
+  "CPY001",  # pas de notice de copyright
+  "EM",      # messages written in the raise, no msg variable
+  "TRY003",  # same: the message lives at the raise site
+]
+[tool.ruff.lint.per-file-ignores]
+"tools/*" = ["INP001"]  # scripts, pas un package
+"{**/tests/*,conftest.py}" = ["S101", "PLR2004", "INP001", "SLF001"]  # assert, nombres magiques et vidage du cache privé
+[tool.ruff.lint.flake8-type-checking]
+runtime-evaluated-base-classes = ["pydantic.BaseModel"]
+[tool.ruff.lint.mccabe]
+max-complexity = 8
+[tool.ruff.lint.pylint]
+max-args = 5
+max-branches = 8
+max-returns = 4
+max-statements = 30
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+files = ["packages", "apps", "tools"]
+
+[[tool.mypy.overrides]]
+module = "warcio.*"
+ignore_missing_imports = true  # warcio ne publie pas de stubs
+
+[[tool.mypy.overrides]]
+module = "testcontainers.*"
+ignore_missing_imports = true  # testcontainers ne publie pas de stubs
+
+[tool.pytest.ini_options]
+testpaths = ["apps", "packages"]
+filterwarnings = [
+  "error",
+  # starlette.testclient utilise encore un alias anyio déprécié : pas notre code
+  "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
+]

@@ -1,0 +1,6 @@
+.venv/
+out/
+tranco.csv
+__pycache__/
+.env
+*.log

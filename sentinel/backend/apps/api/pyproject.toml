@@ -1,0 +1,17 @@
+[project]
+name = "api"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "store",
+    "fastapi>=0.121",
+    "uvicorn[standard]>=0.38",
+    "pydantic>=2.12",
+]
+
+[tool.uv.sources]
+store = { workspace = true }
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"

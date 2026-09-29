@@ -1,0 +1,182 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["src/**", "*.json", "*.ts", "*.html", "!src/api/schema.d.ts"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 88
+  },
+  "linter": {
+    "domains": {
+      "react": "recommended",
+      "project": "recommended",
+      "types": "recommended"
+    },
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "error",
+          "options": {
+            "maxAllowedComplexity": 15
+          }
+        }
+      },
+      "style": {
+        "noExcessiveLinesPerFile": {
+          "level": "error",
+          "options": {
+            "maxLines": 300,
+            "skipBlankLines": true
+          }
+        }
+      },
+      "nursery": {
+        "noFloatingPromises": "error"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/features/overview/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "**/pages",
+                      "**/pages/**",
+                      "!**/api/pages",
+                      "!**/api/pages/**",
+                      "**/runs",
+                      "**/runs/**",
+                      "!**/api/runs",
+                      "!**/api/runs/**"
+                    ],
+                    "message": "features/overview, features/pages et features/runs ne s'importent jamais : elles se rejoignent dans app/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/features/pages/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "**/overview",
+                      "**/overview/**",
+                      "!**/api/overview",
+                      "!**/api/overview/**",
+                      "**/runs",
+                      "**/runs/**",
+                      "!**/api/runs",
+                      "!**/api/runs/**"
+                    ],
+                    "message": "features/overview, features/pages et features/runs ne s'importent jamais : elles se rejoignent dans app/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/features/runs/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "**/overview",
+                      "**/overview/**",
+                      "!**/api/overview",
+                      "!**/api/overview/**",
+                      "**/pages",
+                      "**/pages/**",
+                      "!**/api/pages",
+                      "!**/api/pages/**"
+                    ],
+                    "message": "features/overview, features/pages et features/runs ne s'importent jamais : elles se rejoignent dans app/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/ui/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features/**", "**/api/**"],
+                    "message": "ui/ ne connaît aucun domaine : tout arrive en props."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/api/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features/**", "**/ui/**"],
+                    "message": "api/ ne connaît ni les écrans ni le design system."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

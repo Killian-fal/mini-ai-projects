@@ -1,0 +1,9 @@
+[project]
+name = "commoncrawl"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = ["duckdb>=1.5", "warcio>=1.8"]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
