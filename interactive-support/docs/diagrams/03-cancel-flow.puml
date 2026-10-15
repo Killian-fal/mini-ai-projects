@@ -1,0 +1,75 @@
+@startuml
+' Drawn from CANCEL_FLOW (flows/cancel): states and transitions checked against the code;
+' categories, descriptions and the dashed InvalidAnswer loops added by hand
+!include _style.iuml
+hide empty description
+skinparam state {
+  BorderColor $STEP_LINE
+  BackgroundColor $STEP_BG
+  FontSize 13
+  AttributeFontSize 10
+  AttributeFontColor $MUTED
+  BackgroundColor<<ask>> $ASK_BG
+  BorderColor<<ask>> $ASK_LINE
+  BackgroundColor<<llm>> $LLM_BG
+  BorderColor<<llm>> $LLM_LINE
+  BackgroundColor<<act>> $ACT_BG
+  BorderColor<<act>> $ACT_LINE
+  BackgroundColor<<msg>> $END_BG
+  BorderColor<<msg>> $END_LINE
+}
+hide stereotype
+
+state "Order status" as ORDER_STATUS <<step>> : <i>domain read</i>\n<size:9>ORDER_STATUS</size>
+state "<U+201C>Order not found<U+201D>" as ORDER_NOT_FOUND <<msg>> : <i>message</i>\n<size:9>ORDER_NOT_FOUND</size>
+state "<U+201C>Already cancelled<U+201D>" as ALREADY_CANCELLED <<msg>> : <i>message</i>\n<size:9>ALREADY_CANCELLED</size>
+state "<U+201C>Too late to cancel<U+201D>" as TOO_LATE_TO_CANCEL <<msg>> : <i>message</i>\n<size:9>TOO_LATE_TO_CANCEL</size>
+state "Offer actions" as PROPOSAL_NOT_PREPARED <<ask>> : <i>choice among 3</i>\n<size:9>PROPOSAL_NOT_PREPARED</size>
+state "Offer actions" as PROPOSAL_IN_PREPARATION <<ask>> : <i>choice among 2</i>\n<size:9>PROPOSAL_IN_PREPARATION</size>
+state "Ask for the reason" as CANCEL_REASON <<ask>> : <i>free text</i>\n<size:9>CANCEL_REASON</size>
+state "Store at fault?" as IS_SERVICE_ISSUE <<llm>> : <i>decision: yes_no</i>\n<size:9>IS_SERVICE_ISSUE</size>
+state "Apologize" as APOLOGIZE <<llm>> : <i>written text: communication</i>\n<size:9>APOLOGIZE</size>
+state "Ask for details" as SERVICE_DETAILS <<ask>> : <i>free text</i>\n<size:9>SERVICE_DETAILS</size>
+state "Cancel the order" as CANCEL_ORDER <<act>> : <i>action on the order</i>\n<size:9>CANCEL_ORDER</size>
+state "Ask for the new address" as NEW_ADDRESS <<ask>> : <i>free text, read by the LLM: generate</i>\n<size:9>NEW_ADDRESS</size>
+state "Check the address" as ADDRESS_DETAILS <<ask>> : <i>pre-filled form + geocoding</i>\n<size:9>ADDRESS_DETAILS</size>
+state "Confirm on the map" as ADDRESS_CONFIRMATION <<ask>> : <i>yes / no</i>\n<size:9>ADDRESS_CONFIRMATION</size>
+state "Update the address" as UPDATE_ADDRESS <<act>> : <i>action on the order</i>\n<size:9>UPDATE_ADDRESS</size>
+state "Choose the delivery mode" as DELIVERY_MODE <<ask>> : <i>choice, except the current mode</i>\n<size:9>DELIVERY_MODE</size>
+state "Change the delivery mode" as UPDATE_DELIVERY_MODE <<act>> : <i>action on the order</i>\n<size:9>UPDATE_DELIVERY_MODE</size>
+
+[*] --> ORDER_STATUS
+ORDER_STATUS --> ORDER_NOT_FOUND : not found
+ORDER_STATUS --> PROPOSAL_NOT_PREPARED : not prepared
+ORDER_STATUS --> PROPOSAL_IN_PREPARATION : in preparation
+ORDER_STATUS --> TOO_LATE_TO_CANCEL : shipped / delivered
+ORDER_STATUS --> ALREADY_CANCELLED : cancelled
+ORDER_NOT_FOUND --> [*]
+ALREADY_CANCELLED --> [*]
+TOO_LATE_TO_CANCEL --> [*]
+PROPOSAL_NOT_PREPARED --> CANCEL_REASON : cancel
+PROPOSAL_NOT_PREPARED --> NEW_ADDRESS : change the address
+PROPOSAL_NOT_PREPARED --> DELIVERY_MODE : change the mode
+PROPOSAL_IN_PREPARATION --> CANCEL_REASON : cancel
+PROPOSAL_IN_PREPARATION --> NEW_ADDRESS : change the address
+CANCEL_REASON --> IS_SERVICE_ISSUE
+IS_SERVICE_ISSUE --> APOLOGIZE : yes
+IS_SERVICE_ISSUE --> CANCEL_ORDER : no
+APOLOGIZE --> SERVICE_DETAILS
+SERVICE_DETAILS --> CANCEL_ORDER
+CANCEL_ORDER --> [*]
+NEW_ADDRESS --> ADDRESS_DETAILS
+NEW_ADDRESS -[dashed]-> NEW_ADDRESS : <size:10>ADDRESS_UNREADABLE</size>
+ADDRESS_DETAILS --> ADDRESS_CONFIRMATION
+ADDRESS_DETAILS -[dashed]-> ADDRESS_DETAILS : <size:10>ADDRESS_NOT_FOUND</size>
+ADDRESS_CONFIRMATION --> UPDATE_ADDRESS : this is the place
+ADDRESS_CONFIRMATION --> ADDRESS_DETAILS : wrong place
+UPDATE_ADDRESS --> [*]
+DELIVERY_MODE --> UPDATE_DELIVERY_MODE
+UPDATE_DELIVERY_MODE --> [*]
+
+legend bottom
+  <back:$ASK_BG>      </back> question to the customer    <back:$LLM_BG>      </back> call to a model    <back:$ACT_BG>      </back> action on the order    <back:$STEP_BG>      </back> code    <back:$END_BG>      </back> final message
+  dashed: answer the flow rejects, the same question is asked again (generic input errors are not drawn)
+endlegend
+@enduml

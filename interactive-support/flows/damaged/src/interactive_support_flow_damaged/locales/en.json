@@ -1,0 +1,12 @@
+{
+  "DamagedCode": {
+    "ORDER_NOT_FOUND": "I can't find any order with this number.",
+    "ORDER_CANCELLED": "This order is cancelled: it won't be delivered.",
+    "NOT_DELIVERED_YET": "Your order hasn't been delivered yet: it will reach you soon.",
+    "ASK_PHOTO": "Please send us a photo of the damaged product.",
+    "NO_DAMAGE_VISIBLE": "I can't see any damaged product on the photo.",
+    "ASK_REPORT_CONFIRMATION": "Here is what I'll send to our support team. Is it right?",
+    "ASK_REPORT_CORRECTION": "What should be corrected?",
+    "SENT_TO_SUPPORT": "Your report has been sent to our support team: we'll get back to you soon."
+  }
+}

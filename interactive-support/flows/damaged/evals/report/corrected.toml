@@ -1,0 +1,11 @@
+# the customer adds a damage the report missed
+[[cases]]
+photo = "torn_box.webp"
+refused = { report = "Le carton est déchiré sur le dessus.", correction = "Il y a aussi des traces d'humidité sur le côté." }
+expected = { report = true, mentions = [["déchir"], ["humid", "trace", "tache", "mouill"]] }
+
+# the customer removes a damage the report invented
+[[cases]]
+photo = "torn_box.webp"
+refused = { report = "Le carton est déchiré sur le dessus et l'écran du téléviseur est fissuré.", correction = "La télé n'a rien, seul le carton est abîmé." }
+expected = { report = true, mentions = [["carton"]], avoids = ["fissur"] }

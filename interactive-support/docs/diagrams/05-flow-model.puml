@@ -1,0 +1,66 @@
+@startuml
+' What a flow is made of (flow-api): steps, questions, typed memory, coded messages. Concepts only, no signatures
+!include _style.iuml
+skinparam class {
+  BackgroundColor $STEP_BG
+  BorderColor $STEP_LINE
+  BackgroundColor<<client>> $ASK_BG
+  BorderColor<<client>> $ASK_LINE
+  BackgroundColor<<memory>> $DATA_BG
+  BorderColor<<memory>> $DATA_LINE
+  AttributeFontSize 12
+}
+hide empty members
+hide circle
+hide stereotype
+
+class Flow {
+  the issue it handles
+  a description for the opening
+  its steps
+}
+class Step {
+  runs code
+  returns a value
+}
+class AskStep {
+  asks a question
+  receives the typed answer
+}
+class "Transition (next)" as Next {
+  value → next step
+}
+class Question <<client>> {
+  text, choice, confirmation,
+  photo or form
+}
+class Action <<client>> {
+  the component the
+  interface displays
+}
+class "Coded message (TextCode)" as Code <<client>> {
+  translated on output
+}
+class FlowContext <<memory>> {
+  issue, order, language
+}
+class Extension <<memory>> {
+  a piece of data kept
+  between two steps
+}
+
+Flow *-- Step
+Flow *-- AskStep
+Step --> Next
+AskStep --> Next
+AskStep --> Question : builds
+Question --> Action : described by
+Step ..> FlowContext : reads, writes
+AskStep ..> FlowContext : reads, writes
+FlowContext o-- Extension
+Step ..> Code : says
+AskStep ..> Code : says
+legend bottom
+  <back:$STEP_BG>      </back> code    <back:$ASK_BG>      </back> what the customer sees    <back:$DATA_BG>      </back> data
+endlegend
+@enduml

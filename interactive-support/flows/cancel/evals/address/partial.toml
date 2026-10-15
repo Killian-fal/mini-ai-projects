@@ -1,0 +1,19 @@
+[[cases]]
+input = "Je déménage à Nantes."
+expected = { city = "Nantes" }
+
+[[cases]]
+input = "18 rue Oberkampf"
+expected = { street = "18 rue Oberkampf" }
+
+[[cases]]
+input = "Au 9 rue de la République à Marseille"
+expected = { street = "9 rue de la République", city = "Marseille" }
+
+[[cases]]
+input = "75011 Paris"
+expected = { postal_code = "75011", city = "Paris" }
+
+[[cases]]
+input = "C'est à Strasbourg, je vous donne la rue plus tard."
+expected = { city = "Strasbourg" }

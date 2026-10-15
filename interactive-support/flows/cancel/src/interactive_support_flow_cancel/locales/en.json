@@ -1,0 +1,34 @@
+{
+  "CancelCode": {
+    "ORDER_NOT_FOUND": "I can't find any order with this number.",
+    "ALREADY_CANCELLED": "This order is already cancelled.",
+    "TOO_LATE_TO_CANCEL": "Your order has already shipped: it's too late to cancel it.",
+    "ASK_PROPOSAL": "What would you like to do?",
+    "ASK_CANCEL_REASON": "Why do you want to cancel your order?",
+    "ASK_SERVICE_DETAILS": "Could you tell us more about what happened?",
+    "ORDER_CANCELLED": "Your order is cancelled.",
+    "ASK_NEW_ADDRESS": "What is your new delivery address?",
+    "ADDRESS_UNREADABLE": "I couldn't find an address: please give the number, street, postal code and city.",
+    "ASK_ADDRESS_DETAILS": "Please check your new address and complete it if needed.",
+    "ADDRESS_NOT_FOUND": "I can't find this address: please check the number, street, postal code and city.",
+    "ASK_ADDRESS_CONFIRMATION": "Is this where you want your order delivered?",
+    "ADDRESS_UPDATED": "Your delivery address has been updated.",
+    "ASK_DELIVERY_MODE": "Which delivery method would you like?",
+    "DELIVERY_MODE_UPDATED": "Your delivery method has been updated."
+  },
+  "CancelProposal": {
+    "CANCEL": "Cancel the order",
+    "CHANGE_ADDRESS": "Change the delivery address",
+    "CHANGE_DELIVERY_MODE": "Change the delivery method"
+  },
+  "CancelDeliveryModeChoice": {
+    "HOME": "Home delivery",
+    "RELAY_POINT": "Pickup point",
+    "STORE": "In-store pickup"
+  },
+  "AddressField": {
+    "STREET": "Number and street",
+    "POSTAL_CODE": "Postal code",
+    "CITY": "City"
+  }
+}

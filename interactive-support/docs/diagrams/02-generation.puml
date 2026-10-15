@@ -1,0 +1,36 @@
+@startuml
+' From the photo of a business drawing to a tested flow: the code agent loops until every guard is green
+!include _style.iuml
+skinparam activity {
+  BackgroundColor $LLM_BG
+  BorderColor $LLM_LINE
+  DiamondBackgroundColor #FFFFFF
+  DiamondBorderColor #777777
+}
+skinparam swimlane {
+  BorderColor #BBBBBB
+  TitleFontStyle bold
+  TitleFontSize 13
+}
+
+|#FFFDF2|Business|
+start
+:Draws the journey\nand sends the photo; <<$ASK_BG>>
+|#F6F9FF|Code agent|
+:Reads the ""new-flow"" skill\nand opens CANCEL, the example to copy;
+:Fills in what the drawing does not say\n<size:11>forgotten statuses, order not found…</size>;
+repeat
+  :Writes or fixes the flow package\n<size:11>steps, messages, translations, tests</size>;
+  |#F7FCF6|Automatic guards|
+  :""make format"", ""make check"", ""make test""; <<$STEP_BG>>
+repeat while (a guard fails?) is (yes: a precise error code) not (no)
+|Code agent|
+:Hands in a report\n<size:11>diagram of the flow, what it added,</size>\n<size:11>what is not checked</size>;
+|#FFFDF2|Developer|
+:Reviews the report, and the code\nwhere the report flags an addition; <<$ASK_BG>>
+:Writes and labels the eval cases,\nthen runs ""make eval""; <<$ASK_BG>>
+stop
+legend bottom
+  <back:$ASK_BG>      </back> human    <back:$LLM_BG>      </back> code agent    <back:$STEP_BG>      </back> automatic check
+endlegend
+@enduml

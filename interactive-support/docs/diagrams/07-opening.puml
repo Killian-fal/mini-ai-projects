@@ -1,0 +1,47 @@
+@startuml
+' The opening (core): language, problem and order number, before the problem's flow starts
+!include _style.iuml
+hide empty description
+skinparam state {
+  BorderColor $STEP_LINE
+  BackgroundColor $STEP_BG
+  AttributeFontSize 11
+  AttributeFontColor $MUTED
+  BackgroundColor<<ask>> $ASK_BG
+  BorderColor<<ask>> $ASK_LINE
+  BackgroundColor<<llm>> $LLM_BG
+  BorderColor<<llm>> $LLM_LINE
+}
+hide stereotype
+
+state "Analyze the first message" as FIRST <<llm>> : <i>one call: the language and the issue</i>\n<i>the number: regular expression</i>
+state CANDIDATES <<choice>>
+state "Confirm the issue" as CONFIRM <<ask>> : <i>choice: the candidates + <U+201C>something else<U+201D></i>
+state "Describe the issue" as DESCRIBE <<ask>> : <i>free text, then one call: the issue</i>\n<i>the number, if present</i>
+state NUMBER_KNOWN <<choice>>
+state "Ask for the order number" as NUMBER <<ask>> : <i>text, read by regular expression</i>
+state "The issue's flow" as FLOW : <i>CANCEL, DAMAGED…</i>
+
+[*] --> FIRST : first message
+FIRST --> CANDIDATES
+DESCRIBE --> CANDIDATES
+CANDIDATES --> CONFIRM : confidence ≥ 0.7: the most likely alone\notherwise: all those with probability > 0
+CANDIDATES --> DESCRIBE : no candidate\n(<U+201C>other<U+201D>)
+CONFIRM --> DESCRIBE : <U+201C>something else<U+201D>
+CONFIRM --> NUMBER_KNOWN : issue chosen
+NUMBER_KNOWN --> FLOW : number known
+NUMBER_KNOWN --> NUMBER : number missing
+NUMBER -[dashed]-> NUMBER : <size:10>ORDER_NUMBER_UNREADABLE</size>
+NUMBER --> FLOW : number read
+FLOW --> [*]
+
+note right of CONFIRM
+  Even when confident, the model never decides alone:
+  the customer always confirms their issue.
+  Uncertainty only changes the number of choices offered.
+end note
+note bottom of DESCRIBE
+  No way out other than choosing an issue:
+  there is no human handover yet.
+end note
+@enduml

@@ -1,0 +1,12 @@
+expected = false
+
+inputs = [
+    "J'ai changé d'avis.",
+    "Je me suis trompé de couleur.",
+    "Je l'ai trouvé moins cher ailleurs.",
+    "Je n'en ai plus besoin.",
+    "Mon budget est trop serré ce mois-ci.",
+    "C'était pour un anniversaire qui n'a plus lieu.",
+    "J'ai commandé deux fois la même chose par erreur.",
+    "Je préfère l'acheter en magasin finalement.",
+]

@@ -1,0 +1,16 @@
+{
+  "OpeningCode": {
+    "ASK_ISSUE": "Could you describe your problem?",
+    "ASK_ISSUE_CHOICE": "To be sure I understand, your request is about:",
+    "VALID_ISSUE": "Got it.",
+    "ASK_ORDER_NUMBER": "What is your order number?",
+    "ORDER_NUMBER_UNREADABLE": "I can't find an order number in your answer: it looks like CMA_12345.",
+    "VALID_ORDER_NUMBER": "Thanks, I have your order number.",
+    "COMPLETE_CONVERSATION": "Thank you, have a nice day!"
+  },
+  "IssueChoice": {
+    "CANCEL": "Cancel my order",
+    "DAMAGED": "My order arrived damaged",
+    "OTHER": "Something else"
+  }
+}

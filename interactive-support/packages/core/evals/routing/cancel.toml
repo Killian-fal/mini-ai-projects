@@ -1,0 +1,14 @@
+expected = ["CANCEL"]
+
+inputs = [
+    "Bonjour, je souhaite annuler ma commande #CMA_001.",
+    "annuler commande svp",
+    "J'ai commandé par erreur, est-ce que je peux encore annuler ?",
+    "Je n'ai plus besoin de ma commande, merci de l'annuler.",
+    "Bonjour, j'ai trouvé le même article moins cher ailleurs, je voudrais annuler ma commande CMA_002.",
+    "Ma commande n'est toujours pas partie après 10 jours, j'en ai marre, annulez-la.",
+    "Je me suis trompé de taille, je voudrais annuler avant l'envoi.",
+    "je veux plus de ma commande",
+    "Bonsoir, pouvez-vous stopper ma commande #CMA_003 s'il vous plaît ?",
+    "J'ai passé deux fois la même commande par erreur, il faut en annuler une.",
+]

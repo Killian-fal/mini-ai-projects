@@ -1,0 +1,18 @@
+[project]
+name = "interactive-support-cli"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "interactive-support-core",
+    "interactive-support-flow-api",
+    "interactive-support-flow-bom",
+    "interactive-support-observability",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+cli = "interactive_support_cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12.0"]
+build-backend = "uv_build"

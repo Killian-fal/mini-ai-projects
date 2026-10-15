@@ -1,0 +1,60 @@
+[project]
+name = "interactive-support"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "interactive-support-api",
+    "interactive-support-cli",
+]
+
+[dependency-groups]
+dev = [
+    "interactive-support-flow-eval",
+    "interactive-support-flow-test",
+    "pyright>=1.1.414",
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]
+
+[tool.uv.workspace]
+members = ["packages/*", "domains/*", "flows/*"]
+
+[tool.uv.sources]
+interactive-support-api = { workspace = true }
+interactive-support-cli = { workspace = true }
+interactive-support-flow-api = { workspace = true }
+interactive-support-core = { workspace = true }
+interactive-support-flow-test = { workspace = true }
+interactive-support-flow-eval = { workspace = true }
+interactive-support-observability = { workspace = true }
+interactive-support-domain-order = { workspace = true }
+interactive-support-flow-bom = { workspace = true }
+interactive-support-flow-cancel = { workspace = true }
+interactive-support-flow-damaged = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["packages", "flows"]
+addopts = ["--import-mode=importlib", "-m", "not eval"]
+markers = ["eval: calls the real LLM, run by `make eval` only"]
+
+[tool.pyright]
+include = ["packages/flow-test", "packages/flow-eval", "packages/api", "packages/*/tests", "packages/*/evals", "flows"]
+strict = ["packages/flow-test", "packages/api", "packages/*/tests", "packages/*/evals", "flows"]
+enableTypeIgnoreComments = false
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+include = ["packages/**/*.py", "domains/**/*.py", "flows/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "TID251"]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"unittest.mock".msg = "No mock in a test: the only fake is the LLM, scripted with flow-test"
+"typing.cast".msg = "No cast in a test: fix the types"
+"pytest.skip".msg = "A test runs, or is deleted"
+"pytest.mark.xfail".msg = "A test runs, or is deleted"
+
+[tool.ruff.lint.per-file-ignores]
+"packages/*/src/**" = ["TID251"]

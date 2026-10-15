@@ -1,0 +1,54 @@
+@startuml
+' The only three ways a flow reaches an LLM: what goes in, what comes out, what the flow does with it
+!include _style.iuml
+left to right direction
+skinparam rectangle {
+  BackgroundColor $DATA_BG
+  BorderColor $DATA_LINE
+  BackgroundColor<<code>> $STEP_BG
+  BorderColor<<code>> $STEP_LINE
+  BackgroundColor<<in>> $DATA_BG
+  BorderColor<<in>> $DATA_LINE
+  BackgroundColor<<llm>> $LLM_BG
+  BorderColor<<llm>> $LLM_LINE
+  BackgroundColor<<client>> $ASK_BG
+  BorderColor<<client>> $ASK_LINE
+  BackgroundColor<<zone>> #FFFFFF
+  BorderColor<<zone>> #AAAAAA
+  FontStyle<<zone>> bold
+}
+hide stereotype
+
+rectangle "communication.generate: write to the customer" <<zone>> {
+  rectangle "Communication\n<size:11>an instruction + facts</size>" <<in>> as M_IN
+  rectangle "Light generative LLM\n<size:11>fixed prompt rules: the customer's</size>\n<size:11>language, 1 to 3 sentences,</size>\n<size:11>no promise</size>" <<llm>> as M_LLM
+  rectangle "GeneratedText\n<size:11>text written for the customer</size>" as M_OUT
+  rectangle "Message to the customer\n<size:11>added to the turn's messages</size>" <<client>> as M_USE
+  M_IN --> M_LLM
+  M_LLM --> M_OUT
+  M_OUT --> M_USE
+}
+
+rectangle "llm.generate: produce an object" <<zone>> {
+  rectangle "GenerateInput\n<size:11>described fields,</size>\n<size:11>text or photo</size>" <<in>> as G_IN
+  rectangle "Light generative LLM\n<size:11>validated JSON output</size>" <<llm>> as G_LLM
+  rectangle "GenerateOutput\n<size:11>typed object, or coded error</size>" as G_OUT
+  rectangle "The customer checks\n<size:11>pre-filled form,</size>\n<size:11>confirmation</size>" <<client>> as G_USE
+  G_IN --> G_LLM
+  G_LLM --> G_OUT
+  G_OUT --> G_USE
+}
+
+rectangle "llm.classify: decide" <<zone>> {
+  rectangle "Named texts\n<size:11>cancel_reason = <U+201C>…<U+201D></size>\n\nClosed questions\n<size:11>yes_no, choose, score</size>" <<in>> as C_IN
+  rectangle "Decision model\n<size:11>non-generative,</size>\n<size:11>one call for all the questions</size>" <<llm>> as C_LLM
+  rectangle "Typed result\n<size:11>value + confidence</size>\n<size:11>+ probability of each option</size>" as C_OUT
+  rectangle "The flow branches\n<size:11>next[value]</size>" <<code>> as C_USE
+  C_IN --> C_LLM
+  C_LLM --> C_OUT
+  C_OUT --> C_USE
+}
+legend bottom
+  <back:$DATA_BG>      </back> data    <back:$LLM_BG>      </back> AI model    <back:$STEP_BG>      </back> code    <back:$ASK_BG>      </back> what the customer sees
+endlegend
+@enduml

@@ -1,0 +1,7 @@
+expected = ["CANCEL", "DAMAGED"]
+
+inputs = [
+    "Ma commande est arrivée cassée, je veux l'annuler.",
+    "Le colis est abîmé, je préfère tout annuler.",
+    "Je veux annuler : l'article reçu hier est rayé.",
+]

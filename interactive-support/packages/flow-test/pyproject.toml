@@ -1,0 +1,13 @@
+[project]
+name = "interactive-support-flow-test"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "interactive-support-core",
+    "interactive-support-flow-api",
+    "pytest>=8.4.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12.0"]
+build-backend = "uv_build"

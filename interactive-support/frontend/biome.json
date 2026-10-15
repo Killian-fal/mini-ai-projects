@@ -1,0 +1,236 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["**", "!!src/api/schema", "!!dist"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "linter": {
+    "domains": {
+      "react": "recommended",
+      "project": "recommended",
+      "types": "recommended",
+      "test": "recommended"
+    },
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "error",
+          "options": {
+            "maxAllowedComplexity": 15
+          }
+        }
+      },
+      "correctness": {
+        "noPrivateImports": "error"
+      },
+      "style": {
+        "noExcessiveLinesPerFile": {
+          "level": "error",
+          "options": {
+            "maxLines": 300
+          }
+        }
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "useExhaustiveSwitchCases": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/app/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features/*/**"],
+                    "message": "Import a feature through its façade only."
+                  },
+                  {
+                    "group": ["**/actions", "**/actions/**"],
+                    "message": "app/ composes features, api and ui: actions belong to features."
+                  },
+                  {
+                    "group": ["**/api/*/**", "**/api/http", "**/api/schema"],
+                    "message": "Reach the server through a resource façade, such as api/conversation."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/features/support/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features", "**/features/**"],
+                    "message": "A feature never imports another feature: they meet in app/."
+                  },
+                  {
+                    "group": ["**/app", "**/app/**"],
+                    "message": "app/ is the composition root: nothing imports it."
+                  },
+                  {
+                    "group": ["**/api/*/**", "**/api/http", "**/api/schema"],
+                    "message": "Reach the server through a resource façade, such as api/conversation."
+                  },
+                  {
+                    "group": ["**/actions/*", "**/actions/*/**"],
+                    "message": "Reach actions through the registry façade, actions/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/actions/*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features", "**/features/**"],
+                    "message": "An action never imports a feature."
+                  },
+                  {
+                    "group": ["**/app", "**/app/**"],
+                    "message": "app/ is the composition root: nothing imports it."
+                  },
+                  {
+                    "group": ["**/api/*/**", "**/api/http", "**/api/schema"],
+                    "message": "Reach the server through a resource façade, such as api/conversation."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/actions/*/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/features", "**/features/**"],
+                    "message": "An action never imports a feature."
+                  },
+                  {
+                    "group": ["**/app", "**/app/**"],
+                    "message": "app/ is the composition root: nothing imports it."
+                  },
+                  {
+                    "group": ["**/api/*/**", "**/api/http", "**/api/schema"],
+                    "message": "Reach the server through a resource façade, such as api/conversation."
+                  },
+                  {
+                    "group": [
+                      "..",
+                      "../*",
+                      "../*/**",
+                      "!../contract",
+                      "!../contract/**",
+                      "!../../**"
+                    ],
+                    "message": "An action never imports another action: only its contract."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/ui/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "**/features",
+                      "**/features/**",
+                      "**/actions",
+                      "**/actions/**",
+                      "**/api",
+                      "**/api/**",
+                      "**/app",
+                      "**/app/**"
+                    ],
+                    "message": "ui/ knows no domain: everything arrives as props."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/api/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "**/features",
+                      "**/features/**",
+                      "**/actions",
+                      "**/actions/**",
+                      "**/ui",
+                      "**/ui/**",
+                      "**/app",
+                      "**/app/**"
+                    ],
+                    "message": "api/ only knows its http and its schema."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

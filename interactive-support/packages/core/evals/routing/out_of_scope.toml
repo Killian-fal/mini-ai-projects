@@ -1,0 +1,14 @@
+expected = []
+
+inputs = [
+    "Où en est ma commande #CMA_002 ?",
+    "Je n'ai pas reçu ma facture.",
+    "Comment je change mon mot de passe ?",
+    "Vous avez ce pull en taille M ?",
+    "Le code promo BIENVENUE ne fonctionne pas.",
+    "Est-ce que vous livrez en Belgique ?",
+    "Bonjour",
+    "Mon colis n'est jamais arrivé.",
+    "Je voudrais changer l'adresse de livraison de ma commande.",
+    "Je voudrais retourner un article qui ne me plaît pas.",
+]

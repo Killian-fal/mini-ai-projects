@@ -1,0 +1,8 @@
+expected = false
+
+inputs = [
+    "Rien.",
+    "Pas de raison particulière.",
+    "Je préfère ne pas le dire.",
+    "Comme ça.",
+]

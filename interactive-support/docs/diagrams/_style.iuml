@@ -1,0 +1,40 @@
+' Shared look of the design document's diagrams, included by each .puml.
+' Smetana is PlantUML's built-in layout engine: no Graphviz to install.
+!pragma layout smetana
+
+' One meaning per colour, in every diagram
+!$STEP_BG = "#DDF3D8"
+!$STEP_LINE = "#4E8F48"
+!$ASK_BG = "#FFF1B8"
+!$ASK_LINE = "#B8901C"
+!$LLM_BG = "#DCE8FB"
+!$LLM_LINE = "#3D6DB5"
+!$ACT_BG = "#F8D4D4"
+!$ACT_LINE = "#B04545"
+!$END_BG = "#EEEEEE"
+!$END_LINE = "#8C8C8C"
+!$DATA_BG = "#F2EDE4"
+!$DATA_LINE = "#9A8763"
+!$BOX_BG = "#F5F1FF"
+!$BOX_LINE = "#7357C2"
+!$INK = "#222222"
+!$MUTED = "#666666"
+
+skinparam DefaultFontName Helvetica
+skinparam DefaultFontSize 13
+skinparam DefaultFontColor $INK
+skinparam Shadowing false
+skinparam RoundCorner 12
+skinparam BackgroundColor #FFFFFF
+skinparam ArrowColor #555555
+skinparam ArrowFontColor #444444
+skinparam ArrowFontSize 11
+skinparam ArrowThickness 1.2
+skinparam NoteBackgroundColor #FFFBEA
+skinparam NoteBorderColor #C8B45A
+skinparam NoteFontSize 12
+skinparam TitleFontSize 16
+skinparam TitleFontStyle bold
+skinparam LegendBackgroundColor #FAFAFA
+skinparam LegendBorderColor #BBBBBB
+skinparam LegendFontSize 11

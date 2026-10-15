@@ -1,0 +1,3 @@
+[[cases]]
+photo = "torn_box.webp"
+expected = { report = true, mentions = [["carton", "colis", "boîte", "emballage"], ["déchir", "éventr", "arrach", "ouvert", "endommag", "abîm", "écras", "enfonc"]] }

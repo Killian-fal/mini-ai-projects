@@ -1,0 +1,19 @@
+[[cases]]
+input = "Je ne sais pas encore."
+expected = {}
+
+[[cases]]
+input = "Chez ma mère."
+expected = {}
+
+[[cases]]
+input = "Finalement je préfère garder mon adresse."
+expected = {}
+
+[[cases]]
+input = "Pourquoi vous avez besoin de ça ?"
+expected = {}
+
+[[cases]]
+input = "La même que pour ma dernière commande."
+expected = {}

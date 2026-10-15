@@ -1,0 +1,14 @@
+expected = ["DAMAGED"]
+
+inputs = [
+    "Bonjour, ma commande est arrivée cassée.",
+    "Le colis était tout écrasé et le vase à l'intérieur est fendu.",
+    "J'ai reçu ma commande #CMA_004 mais l'écran est rayé.",
+    "produit abimé a la livraison",
+    "Ma table est arrivée avec un pied tordu.",
+    "Le livreur a laissé le colis sous la pluie, le livre est trempé et inutilisable.",
+    "Les assiettes sont arrivées en morceaux.",
+    "Il y a une grosse tache sur le canapé que je viens de recevoir.",
+    "J'ai ouvert le colis ce matin : l'abat-jour de la lampe est déchiré.",
+    "Bonjour, le carton était ouvert et la chaise a un pied cassé.",
+]

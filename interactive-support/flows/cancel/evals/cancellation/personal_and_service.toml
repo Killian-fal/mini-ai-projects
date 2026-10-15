@@ -1,0 +1,7 @@
+expected = true
+
+inputs = [
+    "Je l'ai trouvé moins cher ailleurs, et en plus votre livraison est trop lente.",
+    "Je n'en ai plus vraiment besoin, et votre service client ne répond jamais.",
+    "J'ai changé d'avis, d'autant que le prix affiché était faux.",
+]

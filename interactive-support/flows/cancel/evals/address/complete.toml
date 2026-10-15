@@ -1,0 +1,27 @@
+[[cases]]
+input = "18 rue Oberkampf, 75011 Paris"
+expected = { street = "18 rue Oberkampf", postal_code = "75011", city = "Paris" }
+
+[[cases]]
+input = "Nouvelle adresse : 4 place Bellecour 69002 Lyon"
+expected = { street = "4 place Bellecour", postal_code = "69002", city = "Lyon" }
+
+[[cases]]
+input = "c'est au 27 boulevard de la Liberté à Lille, 59800"
+expected = { street = "27 boulevard de la Liberté", postal_code = "59800", city = "Lille" }
+
+[[cases]]
+input = "Livrez plutôt au 3 avenue Jean Médecin, 06000 Nice, merci !"
+expected = { street = "3 avenue Jean Médecin", postal_code = "06000", city = "Nice" }
+
+[[cases]]
+input = "12 rue des Lilas\n33000 Bordeaux"
+expected = { street = "12 rue des Lilas", postal_code = "33000", city = "Bordeaux" }
+
+[[cases]]
+input = "22 COURS MIRABEAU 13100 AIX-EN-PROVENCE"
+expected = { street = "22 cours Mirabeau", postal_code = "13100", city = "Aix-en-Provence" }
+
+[[cases]]
+input = "Je viens de déménager, c'est 5 rue Victor Hugo à Toulouse (31000)."
+expected = { street = "5 rue Victor Hugo", postal_code = "31000", city = "Toulouse" }

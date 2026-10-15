@@ -1,0 +1,81 @@
+@startuml
+' The packages and the direction of their dependencies. The agent's box: what a code agent reads and writes for a flow
+!include _style.iuml
+skinparam component {
+  BackgroundColor $STEP_BG
+  BorderColor $STEP_LINE
+  BackgroundColor<<demo>> #FFFFFF
+  BorderColor<<demo>> #999999
+  BackgroundColor<<ext>> $LLM_BG
+  BorderColor<<ext>> $LLM_LINE
+  FontSize 13
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #999999
+  FontStyle bold
+  BackgroundColor<<box>> $BOX_BG
+  BorderColor<<box>> $BOX_LINE
+}
+skinparam componentStyle rectangle
+hide stereotype
+
+rectangle "Demo applications" as APPS {
+  component "frontend\n<size:11>React, types generated from the OpenAPI</size>" <<demo>> as FRONT
+  component "api\n<size:11>FastAPI, mirror types</size>" <<demo>> as API
+  component "cli\n<size:11>conversation in the terminal</size>" <<demo>> as CLI
+  component "observability\n<size:11>MLflow traces</size>" <<demo>> as OBS
+}
+
+component "flow-bom\n<size:11>the list of shipped flows</size>" as BOM
+
+component "core: the engine\n<size:11>opening, flow engine,</size>\n<size:11>registry, translations</size>" as CORE
+
+rectangle "The code agent's box" <<box>> as BOX {
+  rectangle "flows" as FLOWS {
+    component "cancel" as CANCEL
+    component "damaged" as DAMAGED
+    component "<i>new flow</i>" as NEW
+  }
+  component "flow-api\n<size:11>flow model, llm</size>\n<size:11>and communication tools</size>" as FLOWAPI
+  component "domains/order\n<size:11>pure business rules</size>" as ORDER
+  component "flow-test\n<size:11>turn-by-turn tests,</size>\n<size:11>scripted models</size>" as FLOWTEST
+}
+
+component "flow-api._internal\n<size:11>model clients, InternalError</size>" as INTERNAL
+component "flow-eval\n<size:11>evals, MLflow</size>" as FLOWEVAL
+
+component "Decision model\n<size:11>TypeSafe</size>" <<ext>> as JEV
+component "Generative LLM\n<size:11>OpenRouter</size>" <<ext>> as GEN
+
+FRONT --> API : HTTP
+API --> CORE
+CLI --> CORE
+API --> BOM
+CLI --> BOM
+API --> OBS
+CLI --> OBS
+BOM --> FLOWS : depends on every flow
+CORE ..> FLOWS : discovers through\nentry points
+CORE --> FLOWAPI
+CORE --> INTERNAL
+FLOWS --> FLOWAPI
+FLOWS --> ORDER
+FLOWS --> FLOWTEST : in tests
+FLOWS --> FLOWEVAL : in evals
+FLOWTEST --> CORE : replays the\nreal engine
+FLOWAPI --> INTERNAL
+INTERNAL --> JEV
+INTERNAL --> GEN
+CANCEL -[hidden]right- DAMAGED
+DAMAGED -[hidden]right- NEW
+note right of CORE
+  One direction only: a flow
+  never imports core (ruff
+  rejects it). core is what finds
+  the installed flows.
+end note
+legend bottom
+  <back:$STEP_BG>      </back> project code    <back:#FFFFFF>      </back> demo    <back:$LLM_BG>      </back> AI model    <back:$BOX_BG>      </back> what the code agent sees
+endlegend
+@enduml

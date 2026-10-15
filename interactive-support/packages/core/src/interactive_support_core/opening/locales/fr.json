@@ -1,0 +1,16 @@
+{
+  "OpeningCode": {
+    "ASK_ISSUE": "Pouvez-vous me décrire votre problème ?",
+    "ASK_ISSUE_CHOICE": "Pour être sûr de bien comprendre, votre demande concerne :",
+    "VALID_ISSUE": "C'est noté.",
+    "ASK_ORDER_NUMBER": "Quel est votre numéro de commande ?",
+    "ORDER_NUMBER_UNREADABLE": "Je ne trouve pas de numéro de commande dans votre réponse : il ressemble à CMA_12345.",
+    "VALID_ORDER_NUMBER": "Merci, j'ai bien votre numéro de commande.",
+    "COMPLETE_CONVERSATION": "Merci, bonne journée !"
+  },
+  "IssueChoice": {
+    "CANCEL": "Annuler ma commande",
+    "DAMAGED": "Ma commande est arrivée abîmée",
+    "OTHER": "Autre chose"
+  }
+}

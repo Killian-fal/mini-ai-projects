@@ -1,0 +1,24 @@
+[project]
+name = "interactive-support-flow-damaged"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "interactive-support-domain-order",
+    "interactive-support-flow-api",
+    "pydantic>=2.13.5",
+]
+
+[dependency-groups]
+dev = [
+    "interactive-support-flow-test",
+]
+
+[project.entry-points."interactive_support.flows"]
+damaged = "interactive_support_flow_damaged:DAMAGED_FLOW"
+
+[project.entry-points."interactive_support.locales"]
+damaged = "interactive_support_flow_damaged"
+
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12.0"]
+build-backend = "uv_build"

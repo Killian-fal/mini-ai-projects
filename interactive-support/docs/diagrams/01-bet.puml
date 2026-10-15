@@ -1,0 +1,63 @@
+@startuml
+' Where the expensive intelligence is spent: an autonomous agent at every message, this system once per flow
+!include _style.iuml
+skinparam rectangle {
+  BackgroundColor $STEP_BG
+  BorderColor $STEP_LINE
+  BackgroundColor<<llm>> $LLM_BG
+  BorderColor<<llm>> $LLM_LINE
+  BackgroundColor<<act>> $ACT_BG
+  BorderColor<<act>> $ACT_LINE
+  BackgroundColor<<data>> $DATA_BG
+  BorderColor<<data>> $DATA_LINE
+  BackgroundColor<<zone>> #FFFFFF
+  BorderColor<<zone>> #999999
+  FontStyle<<zone>> bold
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #555555
+}
+hide stereotype
+
+rectangle "Autonomous agent: intelligence paid for at every message" <<zone>> as AUTO {
+  actor "Customer" as C1
+  rectangle "General-purpose LLM\n<size:11>large model, generative</size>" <<llm>> as BIG1
+  rectangle "The whole history\n<size:11>reread at every turn</size>" <<data>> as HIST
+  rectangle "Tools\n<size:11>cancel, update…</size>" <<act>> as TOOLS
+  C1 --> BIG1 : message
+  HIST --> BIG1
+  BIG1 --> TOOLS : chooses alone\nwhat to call
+  BIG1 --> C1 : free-form answer
+}
+
+rectangle "This system: pay for intelligence once, when writing" <<zone>> as OURS {
+  rectangle "At design time, once per journey" <<zone>> as BUILD {
+    actor "Business" as BIZ
+    rectangle "Code agent\n<size:11>large model, supervised</size>\n<size:11>by automatic guards</size>" <<llm>> as CODER
+    rectangle "Flow\n<size:11>typed graph, tested transition by transition</size>" as FLOW
+    BIZ --> CODER : photo of the journey
+    CODER --> FLOW : writes
+  }
+  rectangle "At run time, at every message" <<zone>> as RUN {
+    actor "Customer" as C2
+    rectangle "Engine\n<size:11>follows the graph, stateless</size>" as ENGINE
+    rectangle "Typed context\n<size:11>JSON of the conversation</size>" <<data>> as CTX
+    rectangle "Decision model\n<size:11>non-generative</size>" <<llm>> as DECIDE
+    rectangle "Light generative LLM\n<size:11>extraction, framed message</size>" <<llm>> as GEN
+    rectangle "Domain\n<size:11>orders</size>" <<act>> as DOMAIN
+    C2 --> ENGINE : answer
+    CTX --> ENGINE
+    ENGINE --> DECIDE : closed question\n+ relevant texts
+    DECIDE --> ENGINE : value\n+ probabilities
+    ENGINE --> GEN : described fields
+    GEN --> ENGINE : typed object
+    ENGINE --> DOMAIN : action planned\nby the flow
+    ENGINE --> C2 : next question
+  }
+  FLOW ..> ENGINE : discovered by
+}
+legend bottom
+  <back:$LLM_BG>      </back> AI model    <back:$STEP_BG>      </back> code    <back:$DATA_BG>      </back> data    <back:$ACT_BG>      </back> action on an order
+endlegend
+@enduml

@@ -1,0 +1,26 @@
+[project]
+name = "interactive-support-api"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.143.0",
+    "interactive-support-core",
+    "interactive-support-flow-api",
+    "interactive-support-flow-bom",
+    "interactive-support-observability",
+    "python-dotenv>=1.2.4",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+api = "interactive_support_api:main"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "interactive-support-flow-test",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12.0"]
+build-backend = "uv_build"

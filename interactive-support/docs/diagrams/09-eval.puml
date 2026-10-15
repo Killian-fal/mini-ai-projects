@@ -1,0 +1,30 @@
+@startuml
+' One eval: human cases, the real step of the flow on today's model, checks in code, a score with its uncertainty
+!include _style.iuml
+left to right direction
+skinparam rectangle {
+  BackgroundColor $STEP_BG
+  BorderColor $STEP_LINE
+  BackgroundColor<<human>> $ASK_BG
+  BorderColor<<human>> $ASK_LINE
+  BackgroundColor<<llm>> $LLM_BG
+  BorderColor<<llm>> $LLM_LINE
+  BackgroundColor<<data>> $DATA_BG
+  BorderColor<<data>> $DATA_LINE
+}
+hide stereotype
+
+rectangle "Eval cases\n<size:11>TOML files, one per group</size>\n<size:11>written and labelled by a human</size>\n<size:11>in French</size>" <<human>> as CASES
+rectangle "The real step of the flow\n<size:11>e.g. is_service_issue</size>\n<size:11>real call, cache off</size>" <<llm>> as RUN
+rectangle "Criteria\n<size:11>named checks in code</size>\n<size:11>equality, normalized fields,</size>\n<size:11>expected or forbidden words</size>" as CRITERIA
+rectangle "Report\n<size:11>score + 95% confidence</size>\n<size:11>interval (Wilson)</size>\n<size:11>per criterion, per group,</size>\n<size:11>each failure with its output</size>" <<data>> as REPORT
+rectangle "MLflow\n<size:11>one run per eval,</size>\n<size:11>the traces of the calls</size>" <<data>> as MLFLOW
+rectangle "Developer\n<size:11>reads the failures, improves the question</size>\n<size:11>or the prompt, never the labels</size>" <<human>> as DEV
+
+CASES --> RUN : each input
+RUN --> CRITERIA : output
+CASES --> CRITERIA : expected
+CRITERIA --> REPORT
+REPORT --> MLFLOW
+REPORT --> DEV
+@enduml

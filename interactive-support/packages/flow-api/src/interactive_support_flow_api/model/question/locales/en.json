@@ -1,0 +1,16 @@
+{
+  "ChoiceCode": {
+    "UNKNOWN_CHOICE": "I didn't understand your choice: please pick one of the options."
+  },
+  "ConfirmationCode": {
+    "NOT_A_BOOLEAN": "Please answer yes or no."
+  },
+  "PhotoCode": {
+    "NOT_A_PHOTO": "I didn't receive a photo: please send one.",
+    "URL_NOT_ACCEPTED": "I can't open a link: please send the photo itself."
+  },
+  "FormCode": {
+    "NOT_A_FORM": "I didn't receive the form: please fill it in and send it.",
+    "MISSING_FIELD": "Some information is missing: please fill in every field."
+  }
+}

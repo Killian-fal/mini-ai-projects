@@ -1,0 +1,14 @@
+expected = true
+
+inputs = [
+    "Ma commande n'est toujours pas partie, ça fait deux semaines que j'attends.",
+    "La préparation prend une éternité.",
+    "Le prix a changé entre mon panier et le paiement.",
+    "Le site affichait l'article en stock, et maintenant on me dit qu'il est en rupture.",
+    "La fiche produit annonçait une couleur bleue, la photo montre du vert.",
+    "Le service client ne répond pas à mes mails.",
+    "Le conseiller au téléphone a été désagréable avec moi.",
+    "Ma dernière commande chez vous est arrivée cassée, je n'ai plus confiance.",
+    "On m'a débité deux fois.",
+    "Trop long !",
+]

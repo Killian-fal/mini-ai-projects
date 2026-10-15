@@ -1,0 +1,34 @@
+{
+  "CancelCode": {
+    "ORDER_NOT_FOUND": "Je ne trouve aucune commande avec ce numéro.",
+    "ALREADY_CANCELLED": "Cette commande est déjà annulée.",
+    "TOO_LATE_TO_CANCEL": "Votre commande est déjà expédiée : il est trop tard pour l'annuler.",
+    "ASK_PROPOSAL": "Que souhaitez-vous faire ?",
+    "ASK_CANCEL_REASON": "Pourquoi souhaitez-vous annuler votre commande ?",
+    "ASK_SERVICE_DETAILS": "Pouvez-vous nous en dire plus sur ce qui s'est passé ?",
+    "ORDER_CANCELLED": "Votre commande est annulée.",
+    "ASK_NEW_ADDRESS": "Quelle est votre nouvelle adresse de livraison ?",
+    "ADDRESS_UNREADABLE": "Je n'ai pas trouvé d'adresse : indiquez le numéro, la rue, le code postal et la ville.",
+    "ASK_ADDRESS_DETAILS": "Vérifiez votre nouvelle adresse et complétez-la si besoin.",
+    "ADDRESS_NOT_FOUND": "Je ne trouve pas cette adresse : vérifiez le numéro, la rue, le code postal et la ville.",
+    "ASK_ADDRESS_CONFIRMATION": "Est-ce bien ici que vous souhaitez être livré ?",
+    "ADDRESS_UPDATED": "Votre adresse de livraison est modifiée.",
+    "ASK_DELIVERY_MODE": "Quel mode de livraison souhaitez-vous ?",
+    "DELIVERY_MODE_UPDATED": "Votre mode de livraison est modifié."
+  },
+  "CancelProposal": {
+    "CANCEL": "Annuler la commande",
+    "CHANGE_ADDRESS": "Changer l'adresse de livraison",
+    "CHANGE_DELIVERY_MODE": "Changer le mode de livraison"
+  },
+  "CancelDeliveryModeChoice": {
+    "HOME": "À domicile",
+    "RELAY_POINT": "En point relais",
+    "STORE": "Retrait en magasin"
+  },
+  "AddressField": {
+    "STREET": "Numéro et rue",
+    "POSTAL_CODE": "Code postal",
+    "CITY": "Ville"
+  }
+}

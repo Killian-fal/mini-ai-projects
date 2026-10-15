@@ -1,0 +1,16 @@
+{
+  "ChoiceCode": {
+    "UNKNOWN_CHOICE": "Je n'ai pas compris votre choix : choisissez l'une des options proposées."
+  },
+  "ConfirmationCode": {
+    "NOT_A_BOOLEAN": "Répondez par oui ou par non, s'il vous plaît."
+  },
+  "PhotoCode": {
+    "NOT_A_PHOTO": "Je n'ai pas reçu de photo : envoyez-en une, s'il vous plaît.",
+    "URL_NOT_ACCEPTED": "Je ne peux pas ouvrir de lien : envoyez directement la photo, s'il vous plaît."
+  },
+  "FormCode": {
+    "NOT_A_FORM": "Je n'ai pas reçu le formulaire : remplissez-le et envoyez-le, s'il vous plaît.",
+    "MISSING_FIELD": "Il manque des informations : remplissez tous les champs, s'il vous plaît."
+  }
+}

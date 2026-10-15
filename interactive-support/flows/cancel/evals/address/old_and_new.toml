@@ -1,0 +1,11 @@
+[[cases]]
+input = "Pas au 3 rue Nationale, mais au 10 rue Colbert, 37000 Tours."
+expected = { street = "10 rue Colbert", postal_code = "37000", city = "Tours" }
+
+[[cases]]
+input = "J'ai quitté le 5 rue de Rivoli à Paris, maintenant c'est 22 cours Mirabeau 13100 Aix-en-Provence."
+expected = { street = "22 cours Mirabeau", postal_code = "13100", city = "Aix-en-Provence" }
+
+[[cases]]
+input = "L'ancienne était 8 rue du Port 44000 Nantes, la nouvelle est 14 quai de la Fosse 44000 Nantes."
+expected = { street = "14 quai de la Fosse", postal_code = "44000", city = "Nantes" }

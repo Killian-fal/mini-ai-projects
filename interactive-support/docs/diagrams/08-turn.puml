@@ -1,0 +1,60 @@
+@startuml
+' One turn of a flow: the customer answers, the engine rebuilds everything from the JSON and walks to the next question
+!include _style.iuml
+skinparam sequence {
+  ParticipantBackgroundColor $STEP_BG
+  ParticipantBorderColor $STEP_LINE
+  ParticipantFontSize 13
+  LifeLineBorderColor #AAAAAA
+  GroupBorderColor #999999
+  GroupBackgroundColor #F7F7F7
+  GroupHeaderFontStyle bold
+}
+skinparam ParticipantBackgroundColor<<demo>> #FFFFFF
+skinparam ParticipantBorderColor<<demo>> #999999
+skinparam ParticipantBackgroundColor<<llm>> $LLM_BG
+skinparam ParticipantBorderColor<<llm>> $LLM_LINE
+skinparam ParticipantBackgroundColor<<act>> $ACT_BG
+skinparam ParticipantBorderColor<<act>> $ACT_LINE
+skinparam ActorBackgroundColor $ASK_BG
+skinparam ActorBorderColor $ASK_LINE
+skinparam DatabaseBackgroundColor $DATA_BG
+skinparam DatabaseBorderColor $DATA_LINE
+hide stereotype
+autonumber "<b>0</b>"
+
+actor "Customer" as C
+participant "API" as API <<demo>>
+database "Conversations\n(JSON)" as STORE
+participant "Engine\n(core)" as ENGINE
+participant "Flow steps" as FLOW
+participant "Models\n(decision, LLM)" as MODELS <<llm>>
+participant "Domain\n(orders)" as ORDERS <<act>>
+
+C -> API : answers the pending question
+API -> STORE : loads the conversation
+API -> ENGINE : the answer
+ENGINE -> FLOW : the pending step reads the answer,\non a copy of the context
+opt the step must understand the answer
+  FLOW -> MODELS : one call, with targeted inputs
+end
+
+alt answer rejected (InvalidAnswer)
+  ENGINE -> ENGINE : copy discarded, same question asked again
+else answer accepted
+  loop until the next question or the end
+    ENGINE -> FLOW : next step, chosen by next[value]
+    opt the step decides
+      FLOW -> MODELS : closed question
+    end
+    opt the step acts
+      FLOW -> ORDERS : cancels, updates the address…
+    end
+  end
+end
+
+ENGINE --> API : messages (codes or written texts)\n+ next question
+API -> API : translates the codes into the customer's language
+API -> STORE : saves the conversation
+API --> C : messages + next question
+@enduml
